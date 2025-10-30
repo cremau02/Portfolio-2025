@@ -1,0 +1,68 @@
+
+/* ====== Loader ====== */
+.loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f7de;
+    background-image: url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    z-index: 9999;
+    animation: fadeOut 0.8s ease forwards;
+    animation-delay: 2s;
+    gap: 0.5vw;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.loader-slash {
+    text-align: center;
+    font-size: 4vw;
+    font-family: "BBH Sans Bartle", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color : #000000;
+    letter-spacing: 0.1em;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.loader-text {
+    text-align: center;
+    font-size: 4vw;
+    font-family: "BBH Sans Bartle", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color : #000000;
+    letter-spacing: 0.1em;
+}
+
+/* ====== Animations ====== */
+@keyframes pulse {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+
+    30% {
+        transform: scale(1) rotate(360deg); /* rotation rapide */
+        opacity: 1;
+    }
+
+
+    100% {
+        transform: scale(1) rotate(180deg); /* <== termine à 90° */
+        opacity: 1;
+
+    }
+}
+
+
+
+
+.content {
+    opacity: 0;
+
+}
+

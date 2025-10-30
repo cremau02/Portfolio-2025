@@ -76,18 +76,7 @@
     color : white;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: #121212;
-    font-family: 'Arial', sans-serif;
-}
-
 .wave-text span {
-    color : white;
     display: inline-block;
     animation: wave 2s ease-in-out infinite;
 }
