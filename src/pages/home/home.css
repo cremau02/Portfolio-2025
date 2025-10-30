@@ -1,0 +1,117 @@
+.page {
+    background-color: #f2f7de;
+    background-image: url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Bande rouge en haut */
+.pageHomeTop {
+    position: absolute;
+    top: 5vh;
+    width: 120vw;
+    height: 70vh;
+    transform: rotate(15deg);
+    transform-origin: right;
+    z-index: 0;
+}
+
+/* Bloc noir au centre */
+.pageHomeBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 140vw;
+    background-color: #000000;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+
+}
+
+/* Bande bleue en bas */
+.pageHomeBottom {
+    position: absolute;
+    bottom: -45vh;
+    width: 120vw;
+    height: 70vh;
+
+    transform: rotate(15deg);
+    transform-origin: top;
+    z-index: 0;
+    background-color: #f2f7de;
+    background-image: url("https://www.transparenttextures.com/patterns/beige-paper.png");
+}
+.className{
+    background-color: red;
+    width: 100vw;
+    height: 100vh;
+}
+
+#titleList{
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
+.title{
+    width: 9vw;
+    display: flex;
+    justify-content: center;
+
+    text-align: center;
+    font-size: 1.5vw;
+    font-family: "BBH Sans Bartle", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color : white;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #121212;
+    font-family: 'Arial', sans-serif;
+}
+
+.wave-text span {
+    color : white;
+    display: inline-block;
+    animation: wave 2s ease-in-out infinite;
+}
+
+.wave-text span:nth-child(1) {
+    animation-delay: 0s;
+}
+.wave-text span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.wave-text span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+.wave-text span:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+
