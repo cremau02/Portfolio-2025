@@ -1,3 +1,4 @@
+
 /* ====== Loader ====== */
 .loader {
     position: fixed;
@@ -5,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f2f7de;""
+    background-color: #f2f7de;
     background-image: url("https://www.transparenttextures.com/patterns/beige-paper.png");
     z-index: 9999;
     animation: fadeOut 0.8s ease forwards;
@@ -24,7 +25,7 @@
     font-style: normal;
     color : #000000;
     letter-spacing: 0.1em;
-    animation: zoom-in-zoom-out 2s ease-in-out infinite;
+    animation: pulse 2s ease-in-out infinite;
 }
 
 .loader-text {
@@ -56,21 +57,6 @@
 
     }
 }
-
-@keyframes zoom-in-zoom-out {
-    0% {
-        transform: scale(1, 1) rotate(0deg);
-    }
-    50% {
-        transform: scale(1.5, 1.5) rotate(45deg);
-        background-color: #2196f3;
-    }
-    100% {
-        transform: scale(1, 1) rotate(0deg);
-    }
-}
-
-
 
 
 .content {
