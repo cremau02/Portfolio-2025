@@ -9,8 +9,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
+
+    --dark-color: #191f1d;
+    --gif-texture: url(https://64.media.tumblr.com/da60c13b478dda09ab90c27e880983b8/tumblr_nd4pwdPKdc1tun3l0o1_1280.gifv);
+    --mulish: "Mulish", sans-serif;
+    --playfair: "Playfair Display", serif;
+    --dm:"DM Serif Display", serif;
 }
 
 /* Bande rouge en haut */
@@ -22,20 +28,50 @@
     transform: rotate(15deg);
     transform-origin: right;
     z-index: 0;
+    background-blend-mode: overlay;
 }
 
-/* Bloc noir au centre */
+
 .pageHomeBar {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50vh;
     width: 140vw;
-    background-color: #000000;
+    background: var(--dark-color);
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 1;
-
+    transform: rotate(15deg);
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
 }
+
+/* Le fond animé (masqué par défaut) */
+.pageHomeBar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--gif-texture);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;                /* Caché par défaut */
+    transition: opacity 0.8s ease-in-out;
+    z-index: 0;                /* Derrière le texte */
+}
+
+/* Au survol : le GIF apparaît en fondu */
+.pageHomeBar:hover::before {
+    opacity: 0.3;              /* Ajuste ici la transparence du GIF */
+}
+
+/* Le texte reste visible au-dessus */
+.pageHomeBar * {
+    position: relative;
+    z-index: 1;
+    transition: none;
+}
+
 
 /* Bande bleue en bas */
 .pageHomeBottom {
@@ -45,16 +81,64 @@
     height: 70vh;
 
     transform: rotate(15deg);
-    transform-origin: top;
+
     z-index: 0;
     background-color: #f2f7de;
     background-image: url("https://www.transparenttextures.com/patterns/beige-paper.png");
+
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
 }
-.className{
-    background-color: red;
-    width: 100vw;
-    height: 100vh;
+
+.pageHomeBottom::before {
+    opacity: 0.3;
+
 }
+
+
+    .logo {
+        width: 30vw;
+        transform: rotate(-15deg);
+
+        margin-top : 30vh;
+        margin-left : 13vw;
+        display: flex;
+        gap: 1vw;
+    }
+        .logo-display{
+            width: 7vw;
+            display: flex;
+            gap : 0.5vw;
+            cursor: pointer;
+            color : var(--dark-color);
+        }
+
+            .logo-text{
+               font-size: 2vw !important;
+            }
+            .logo-slash{
+               font-size: 2vw !important;
+                transform: scale(1) rotate(180deg);
+                animation: turning 2s ease-in-out infinite;
+            }
+            @keyframes turning {
+                0% {
+                    transform: scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+
+                100% {
+                    transform: scale(1) rotate(180deg); /* <== termine à 90° */
+                    opacity: 1;
+
+                }
+            }
+        .logo-extension{
+            width: 10vw;
+        }
+
 
 #titleList{
     width: 100vw;
@@ -62,37 +146,72 @@
     justify-content: space-around;
     flex-direction: row;
     align-items: center;
+    color : #f2f7de;
 }
-.title{
-    width: 9vw;
+    .title{
+
+        display: flex;
+        justify-content: center;
+
+        text-align: center;
+        font-size: 3vw;
+        font-family: "BBH Sans Bartle", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+
+    }
+
+    @keyframes color_anim {
+        0% {
+            fill: white;
+        }
+        50% {
+            fill: #59ba00;
+        }
+        100% {
+            fill: white;
+        }
+    }
+
+.wave-text1, .wave-text2 {
+    width: 20vw;
+
     display: flex;
     justify-content: center;
-
-    text-align: center;
-    font-size: 1.5vw;
-    font-family: "BBH Sans Bartle", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color : white;
+    align-items: center;
 }
 
-.wave-text span {
-    display: inline-block;
-    animation: wave 2s ease-in-out infinite;
+.wave-text1 span,
+.wave-text2 span {
+    animation: wave 6s ease-in-out 1 forwards;
 }
 
-.wave-text span:nth-child(1) {
+/* --- Première ligne --- */
+.wave-text1 span:nth-child(1) {
     animation-delay: 0s;
 }
-.wave-text span:nth-child(2) {
+.wave-text1 span:nth-child(2) {
     animation-delay: 0.2s;
 }
-.wave-text span:nth-child(3) {
+.wave-text1 span:nth-child(3) {
     animation-delay: 0.4s;
 }
-.wave-text span:nth-child(4) {
+.wave-text1 span:nth-child(4) {
     animation-delay: 0.6s;
 }
+
+
+.wave-text2 span {
+    animation-delay: calc(1.5s + var(--delay, 0s));
+}
+
+.wave-text2 span:nth-child(1) { --delay: 0s; }
+.wave-text2 span:nth-child(2) { --delay: 0.2s; }
+.wave-text2 span:nth-child(3) { --delay: 0.4s; }
+.wave-text2 span:nth-child(4) { --delay: 0.6s; }
+.wave-text2 span:nth-child(5) { --delay: 0.8s; }
+.wave-text2 span:nth-child(6) { --delay: 1s; }
+.wave-text2 span:nth-child(7) { --delay: 1.2s; }
 
 @keyframes wave {
     0%, 100% {
