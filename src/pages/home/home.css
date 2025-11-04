@@ -139,6 +139,13 @@
             width: 10vw;
         }
 
+video{
+    position: relative;
+    transform: rotate(-15deg);
+    width: 100%;
+    height: 70vh;
+}
+
 
 #titleList{
     width: 100vw;

@@ -10,10 +10,14 @@ const Home = () => {
         return <Starter />;
     }
 
-
     return (
         <div className="page">
             <div className="pageHomeTop">
+                <video
+                   className="rounded-2xl shadow-lg" muted autoPlay>
+                    <source src="src/videos/niveau6.mp4" type="video/mp4" />
+                </video>
+
             </div>
             <div className="pageHomeBar">
                 <div id="titleList">
