@@ -1,23 +1,40 @@
 import './home.css'
-import React from "react";
+
 import Starter from "../starter/Starter.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const Home = () => {
-
+    const myWorks = document.getElementsByClassName("wave-container")
+    const video = document.getElementById('videoList');
     const [showStarter, setShowStarter] = useState(false);
-
+    const [listVideoActive, setListVideoActive] = useState(true);
     if (showStarter) {
         return <Starter />;
     }
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+        myWorks[1].addEventListener("mouseleave", () => {
+            video.classList.toggle('hidden');
+        });
+        myWorks[1].addEventListener("mouseleave", () => {
+            video.classList.toggle('active');
+        });
+
+
+    })
+
+
     return (
         <div className="page">
             <div className="pageHomeTop">
-                <video
-                   className="rounded-2xl shadow-lg" muted autoPlay>
-                    <source src="src/videos/niveau6.mp4" type="video/mp4" />
-                </video>
-
+                <div id="videoList" hidden={listVideoActive}>
+                    <video className = "rounded-2xl shadow-lg" muted autoPlay loop >
+                        <source src="src/videos/game.mp4" type="video/mp4" />
+                    </video>
+                    <video className="rounded-2xl shadow-lg " muted autoPlay loop>
+                        <source src="src/videos/smartContestS3.mp4" type="video/mp4" />
+                    </video>
+                </div>
             </div>
             <div className="pageHomeBar">
                 <div id="titleList">

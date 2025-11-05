@@ -29,7 +29,58 @@
     transform-origin: right;
     z-index: 0;
     background-blend-mode: overlay;
+
 }
+    #videoList{
+        display: flex;
+        justify-content: center;
+        gap: 0.8svw;
+        opacity: 30%;
+        transform: rotate(-15deg);
+        animation : fadeOut 0.5 ease-out;
+        filter:grayscale(100%);
+        transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    }
+
+    #videoList.hidden {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    }
+
+    video {
+        position: relative;
+        width: 80%;
+        height: 70vh;
+    }
+
+
+
+
+    .fadeInUp {
+        animation: fadeInUp 0.5s ease-in forwards;
+    }
+
+    .fadeOutDown {
+        animation: fadeOutDown 0.5s ease-in forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 0.3;
+        }
+    }
+    @keyframes fadeOut {
+        from {
+            opacity: 0.3;
+        }
+        to {
+            opacity: 0.0;
+        }
+    }
 
 
 .pageHomeBar {
@@ -139,12 +190,7 @@
             width: 10vw;
         }
 
-video{
-    position: relative;
-    transform: rotate(-15deg);
-    width: 100%;
-    height: 70vh;
-}
+
 
 
 #titleList{
@@ -180,7 +226,7 @@ video{
         }
     }
 
-.wave-text1, .wave-text2 {
+.wave-text1, #wave-text2 {
     width: 20vw;
 
     display: flex;
