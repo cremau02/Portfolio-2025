@@ -23,7 +23,6 @@ const Home = () => {
 
     })
 
-
     return (
         <div className="page">
             <div className="pageHomeTop">
