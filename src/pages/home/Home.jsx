@@ -6,6 +6,7 @@ const Home = () => {
     const myWorks = document.getElementsByClassName("wave-container")
     const video = document.getElementById('videoList');
     const [showStarter, setShowStarter] = useState(false);
+    const [listVideoActive, setListVideoActive] = useState(true);
     if (showStarter) {
         return <Starter />;
     }
