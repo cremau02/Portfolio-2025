@@ -5,18 +5,23 @@ import { useState, useEffect } from "react";
 const Home = () => {
 
     const [showStarter, setShowStarter] = useState(false);
+    const [downColor1, setDownColor1] = useState("#f2f7de");
+    const [downColor2, setDownColor2] = useState("#f2f7de");
+    const [downColor3, setDownColor3] = useState("#f2f7de");
     if (showStarter) {
         return <Starter />;
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         const myWorks = document.getElementsByClassName("wave-container")
+        const wave1 = document.getElementsByClassName("wave-text1");
         const worksVideos = document.getElementById('videoList1');
         const experiencesVideos = document.getElementById('videoList2');
 
         const handleMouseEnter = (value) => {
             value.classList.remove("hidden");
             value.classList.add("active");
+
         };
         const handleMouseLeave = (value) => {
             value.classList.remove("active");
@@ -26,9 +31,17 @@ const Home = () => {
         worksVideos.classList.add("hidden");
         experiencesVideos.classList.add("hidden");
 
-
-
+        const addColor = () => {
+            setDownColor1("#51554a")
+            setDownColor3("#51554a")
+        }
+        const removeColor = () => {
+            setDownColor1("#f2f7de")
+            setDownColor3("#f2f7de")
+        }
         myWorks[1].addEventListener("mouseenter", () => handleMouseEnter(worksVideos));
+        myWorks[1].addEventListener("mouseenter", () => addColor());
+        myWorks[1].addEventListener("mouseleave", () => removeColor());
         myWorks[1].addEventListener("mouseleave", () => handleMouseLeave(worksVideos));
         myWorks[2].addEventListener("mouseenter", () => handleMouseEnter(experiencesVideos));
         myWorks[2].addEventListener("mouseleave", () => handleMouseLeave(experiencesVideos));
@@ -54,20 +67,20 @@ const Home = () => {
             <div className="pageHomeBar">
                 <div id="titleList">
                     <div className="wave-container">
-                        <h1 className="wave-text1 title">
+                        <h1 className="wave-text1 title" style={{ color: downColor1}}>
                             <span>M</span><span>E</span>
                         </h1>
                     </div>
                     <div className="wave-container">
-                        <h1 className="wave-text2 title">
+                        <h1 className="wave-text2 title" style={{ color: downColor2}}>
                             <span>M</span><span>Y</span>
                         </h1>
-                        <h1 className="wave-text2 title">
+                        <h1 className="wave-text2 title" style={{ color: downColor2}}>
                             <span>W</span><span>O</span><span>R</span><span>K</span><span>S</span>
                         </h1>
                     </div>
                     <div className="wave-container">
-                        <h1 className="wave-text2 title">
+                        <h1 className="wave-text2 title" style={{ color: downColor3}}>
                             <span>E</span><span>X</span><span>P</span><span>E</span><span>R</span><span>i</span><span>E</span><span>N</span><span>C</span><span>E</span><span>S</span>
                         </h1>
                     </div>
