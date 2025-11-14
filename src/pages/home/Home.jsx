@@ -5,18 +5,26 @@ import { useState, useEffect } from "react";
 const Home = () => {
 
     const [showStarter, setShowStarter] = useState(false);
-    const [downColor1, setDownColor1] = useState("#f2f7de");
-    const [downColor2, setDownColor2] = useState("#f2f7de");
-    const [downColor3, setDownColor3] = useState("#f2f7de");
+    const [hovered, setHovered] = useState(null);
+    const titles = [
+        { id: 'works1', lines: [['M', 'E']] },
+        { id: 'works2', lines: [['M', 'Y'], ['W', 'O', 'R', 'K', 'S']] },
+        { id: 'experiences', lines: [['E', 'X', 'P', 'E', 'R', 'i', 'E', 'N', 'C', 'E', 'S']] },
+    ];
+
+    const downColorDefault = "#f2f7de";
+    const downColorHover = "#51554a";
+
     if (showStarter) {
         return <Starter />;
     }
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         const myWorks = document.getElementsByClassName("wave-container")
-        const wave1 = document.getElementsByClassName("wave-text1");
         const worksVideos = document.getElementById('videoList1');
         const experiencesVideos = document.getElementById('videoList2');
+        const myPhotos = document.getElementById('videoList3');
 
         const handleMouseEnter = (value) => {
             value.classList.remove("hidden");
@@ -26,26 +34,20 @@ const Home = () => {
         const handleMouseLeave = (value) => {
             value.classList.remove("active");
             value.classList.add("hidden");
+
         };
 
+        myPhotos.classList.add("hidden");
         worksVideos.classList.add("hidden");
         experiencesVideos.classList.add("hidden");
 
-        const addColor = () => {
-            setDownColor1("#51554a")
-            setDownColor3("#51554a")
-        }
-        const removeColor = () => {
-            setDownColor1("#f2f7de")
-            setDownColor3("#f2f7de")
-        }
+        myWorks[0].addEventListener("mouseenter", () => handleMouseEnter(myPhotos));
+        myWorks[0].addEventListener("mouseleave", () => handleMouseLeave(myPhotos));
         myWorks[1].addEventListener("mouseenter", () => handleMouseEnter(worksVideos));
-        myWorks[1].addEventListener("mouseenter", () => addColor());
-        myWorks[1].addEventListener("mouseleave", () => removeColor());
         myWorks[1].addEventListener("mouseleave", () => handleMouseLeave(worksVideos));
         myWorks[2].addEventListener("mouseenter", () => handleMouseEnter(experiencesVideos));
         myWorks[2].addEventListener("mouseleave", () => handleMouseLeave(experiencesVideos));
-    })
+    }, [])
 
     return (
         <div className="page">
@@ -63,27 +65,38 @@ const Home = () => {
                         <source src="src/videos/experiences.mp4" type="video/mp4" />
                     </video>
                 </div>
+                <div id="videoList3" >
+                    <img className="rounded-2xl shadow-lg"  src="src/videos/IMG_4686.JPEG" alt="photo de profil"></img>
+                </div>
             </div>
             <div className="pageHomeBar">
                 <div id="titleList">
-                    <div className="wave-container">
-                        <h1 className="wave-text1 title" style={{ color: downColor1}}>
-                            <span>M</span><span>E</span>
-                        </h1>
-                    </div>
-                    <div className="wave-container">
-                        <h1 className="wave-text2 title" style={{ color: downColor2}}>
-                            <span>M</span><span>Y</span>
-                        </h1>
-                        <h1 className="wave-text2 title" style={{ color: downColor2}}>
-                            <span>W</span><span>O</span><span>R</span><span>K</span><span>S</span>
-                        </h1>
-                    </div>
-                    <div className="wave-container">
-                        <h1 className="wave-text2 title" style={{ color: downColor3}}>
-                            <span>E</span><span>X</span><span>P</span><span>E</span><span>R</span><span>i</span><span>E</span><span>N</span><span>C</span><span>E</span><span>S</span>
-                        </h1>
-                    </div>
+                    {titles.map(({ id, lines }) => {
+                        // Le titre survolé garde la couleur par défaut,
+                        // les autres prennent la couleur hover (quand hovered != null)
+                        const color = hovered === null || hovered === id ? downColorDefault : downColorHover;
+
+                        return (
+                            <div
+                                key={id}
+                                className="wave-container"
+                                onMouseEnter={() => setHovered(id)}
+                                onMouseLeave={() => setHovered(null)}
+                            >
+                                {lines.map((line, i) => (
+                                    <h1
+                                        key={i}
+                                        className={`wave-text${i + 1} title`}
+                                        style={{ color }}
+                                    >
+                                        {line.map((char, idx) => (
+                                            <span key={idx}>{char}</span>
+                                        ))}
+                                    </h1>
+                                ))}
+                            </div>
+                        );
+                    })}
                 </div>
 
             </div>
@@ -98,7 +111,6 @@ const Home = () => {
                     <div className="logo-extension"></div>
                 </div>
             </div>
-            <div className="ghost"></div>
         </div>
 
     )
