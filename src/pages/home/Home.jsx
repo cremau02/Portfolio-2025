@@ -1,7 +1,7 @@
 import './home.css'
-
 import Starter from "../starter/Starter.jsx";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useState, useEffect, } from "react";
 const Home = () => {
 
     const [showStarter, setShowStarter] = useState(false);
@@ -12,8 +12,8 @@ const Home = () => {
         { id: 'experiences', lines: [['E', 'X', 'P', 'E', 'R', 'i', 'E', 'N', 'C', 'E', 'S']] },
     ];
 
-    const downColorDefault = "#f2f7de";
-    const downColorHover = "#51554a";
+    const downColorDefault = "#c5bc01";
+    const downColorHover = "#3a3801";
 
     if (showStarter) {
         return <Starter />;
@@ -89,9 +89,17 @@ const Home = () => {
                                         className={`wave-text${i + 1} title`}
                                         style={{ color }}
                                     >
+                                    <Link
+                                        to={`/projects`} // mettre i a la pace et mettre le bon élement react
+
+
+
+                                        style={{ color, textDecoration: "none" }} // garde la couleur hover
+                                    >
                                         {line.map((char, idx) => (
                                             <span key={idx}>{char}</span>
                                         ))}
+                                    </Link>
                                     </h1>
                                 ))}
                             </div>

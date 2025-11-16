@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f2f7de;
+    background-color: var(--background-color);
     background-image: url("https://www.transparenttextures.com/patterns/beige-paper.png");
     z-index: 9999;
     animation-delay: 2s;
@@ -41,7 +41,7 @@
     font-family: "BBH Sans Bartle", sans-serif;
     font-weight: 400;
     font-style: normal;
-    color : var(--dark-color);
+    color : var(--secondary-color);
     letter-spacing: 0.1em;
     animation: test 2s;
 }
