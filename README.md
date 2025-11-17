@@ -1,6 +1,6 @@
 # Projet Portfolio-2025
 
-Ce projet a pour but de présenter un CV de mes compétences acquises au seins de mes différents experiences et projet menée dans le monde proffessionnels et scolaires. 
+Ce projet a pour but de présenter un CV de mes compétences acquises au sein de mes différentes expériences et des projets menés dans le monde professionnel et scolaire.
 
 ### Lancer le projet 
 
