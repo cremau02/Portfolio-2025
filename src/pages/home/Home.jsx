@@ -7,8 +7,8 @@ const Home = () => {
     const [showStarter, setShowStarter] = useState(false);
     const [hovered, setHovered] = useState(null);
     const titles = [
-        { id: 'works1', lines: [['M', 'E']] },
-        { id: 'works2', lines: [['M', 'Y'], ['W', 'O', 'R', 'K', 'S']] },
+        { id: 'me', lines: [['M', 'E']] },
+        { id: 'projects', lines: [['P', 'R', 'O', 'J', 'E','C', 'T', 'S']] },
         { id: 'experiences', lines: [['E', 'X', 'P', 'E', 'R', 'i', 'E', 'N', 'C', 'E', 'S']] },
     ];
 
@@ -90,10 +90,7 @@ const Home = () => {
                                         style={{ color }}
                                     >
                                     <Link
-                                        to={`/projects`} // mettre i a la pace et mettre le bon élement react
-
-
-
+                                        to={`/${id}`} // mettre i a la pace et mettre le bon élement react
                                         style={{ color, textDecoration: "none" }} // garde la couleur hover
                                     >
                                         {line.map((char, idx) => (

@@ -59,9 +59,6 @@
         height: 120vh;
     }
 
-
-
-
     .fadeInUp {
         animation: fadeInUp 0.5s ease-in forwards;
     }
@@ -134,7 +131,7 @@
         align-items: center;
         color : var(--background-color);;
         justify-content: center;
-        gap: 10vw
+        gap: 5vw
     }
     .title{
 
