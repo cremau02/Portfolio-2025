@@ -2,6 +2,7 @@ import './home.css'
 import Starter from "../starter/Starter.jsx";
 import { Link } from "react-router-dom";
 import { useState, useEffect, } from "react";
+import Loader from "../loader/loader.jsx";
 const Home = () => {
 
     const [showStarter, setShowStarter] = useState(false);
@@ -12,12 +13,13 @@ const Home = () => {
         { id: 'experiences', lines: [['E', 'X', 'P', 'E', 'R', 'i', 'E', 'N', 'C', 'E', 'S']] },
     ];
 
-    const downColorDefault = "#c5bc01";
-    const downColorHover = "#3a3801";
+    const downColorDefault = "#ffffff";
+    const downColorHover = "#505050";
 
     if (showStarter) {
         return <Starter />;
     }
+
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
@@ -98,6 +100,7 @@ const Home = () => {
                                         ))}
                                     </Link>
                                     </h1>
+
                                 ))}
                             </div>
                         );
@@ -122,3 +125,15 @@ const Home = () => {
 }
 
 export default Home
+
+
+/**
+ *                                      <Link
+ *                                         to={`/${id}`} // mettre i a la pace et mettre le bon élement react
+ *                                         style={{ color, textDecoration: "none" }} // garde la couleur hover
+ *                                     >
+ *                                         {line.map((char, idx) => (
+ *                                             <span key={idx}>{char}</span>
+ *                                         ))}
+ *                                     </Link>
+ */

@@ -1,0 +1,60 @@
+.page {
+    background-color: var(--background-color);;
+    background-image: url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    --gif-texture: url(https://64.media.tumblr.com/da60c13b478dda09ab90c27e880983b8/tumblr_nd4pwdPKdc1tun3l0o1_1280.gifv);
+    --mulish: "Mulish", sans-serif;
+    --playfair: "Playfair Display", serif;
+    --dm:"DM Serif Display", serif;
+}
+
+.logo {
+    width: 30vw;
+    transform: rotate(-15deg);
+
+    margin-top : 30vh;
+    margin-left : 13vw;
+    display: flex;
+    gap: 1vw;
+}
+.logo-display{
+    width: 7vw;
+    display: flex;
+    gap : 0.5vw;
+    cursor: pointer;
+    color : var(--secondary-color);
+}
+
+.logo-text{
+    font-size: 2vw !important;
+}
+.logo-slash{
+    font-size: 2vw !important;
+    transform: scale(1) rotate(180deg);
+    animation: turning 2s ease-in-out infinite;
+}
+@keyframes turning {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1) rotate(180deg); /* <== termine à 90° */
+        opacity: 1;
+
+    }
+}
+.logo-extension{
+    width: 10vw;
+}
+
