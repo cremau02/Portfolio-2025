@@ -10,34 +10,47 @@ const Projects = () => {
         { id: 3, title: 'Projet 3' },
     ];
 
-
-
     const initialState = {
         left: 1,
-        main: 2,
+        main : 2,
         right: 3,
     };
 
     const [position, setPosition] = useState(initialState);
 
     const getPosition = (id) => {
-        return Object.keys(initialState).find(key => initialState[key] === id)
+        return Object.keys(position).find(key => position[key] === id)
     }
-    const handleClick = (id) => {
-        const clickedPosition = (id) => getPosition(id)
+    useEffect(() => {
 
-        if (clickedPosition(id) === 'main') {
+    }, )
+
+    const handleClick = (clickedId) => {
+        if (clickedId.position === 'main') {
             return ;
         }
-        if (clickedPosition(id) === 'left') {
-            setPosition({...position, main: id})
+        const clicked = getPosition(clickedId)
+        console.log(clicked)
+        if (clicked === 'left') {
+            const newPositions = {
+                main: position.left,
+                right: position.main,
+                left: position.right,
+            };
+            setPosition(newPositions);
+        }
+
+        if (clicked === 'right') {
+            const newPositions = {
+                main: position.right,
+                left: position.main,
+                right: position.left,
+            };
+            setPosition(newPositions);
         }
     }
 
-
-
-
-  return (
+    return (
       <div className="projectPage">
         <div className="logo-box">
           <div className="logo-top">
@@ -49,7 +62,7 @@ const Projects = () => {
         <div className="section1">
             <div className="listProject">
                 {projectData.map((project) => (
-                    <div className={`project ${getPosition(project.id)}`} key={project.id} onClick={handleClick} >{project.title}</div>
+                    <div className={`project ${getPosition(project.id)}`} onClick={() => handleClick(project.id)} ></div>
                 ) )}
             </div>
         </div>
