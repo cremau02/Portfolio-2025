@@ -18,12 +18,13 @@ const Projects = () => {
 
     const [position, setPosition] = useState(initialState);
 
+    document.addEventListener('scroll', () => console.log(window.scrollY))
+    const logo = document.getElementsByClassName('logo-box');
+
     const getPosition = (id) => {
         return Object.keys(position).find(key => position[key] === id)
     }
-    useEffect(() => {
 
-    }, )
 
     const handleClick = (clickedId) => {
         if (clickedId.position === 'main') {
