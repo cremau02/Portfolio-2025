@@ -5,3 +5,7 @@
     --secondary-color: #433d3d;
     --dark-color: #1f2323;
 }
+
+html, body{
+    overflow-x: hidden;
+}
