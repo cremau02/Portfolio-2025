@@ -74,8 +74,6 @@ const Home = () => {
             <div className="pageHomeBar">
                 <div id="titleList">
                     {titles.map(({ id, lines }) => {
-                        // Le titre survolé garde la couleur par défaut,
-                        // les autres prennent la couleur hover (quand hovered != null)
                         const color = hovered === null || hovered === id ? downColorDefault : downColorHover;
 
                         return (
@@ -92,8 +90,8 @@ const Home = () => {
                                         style={{ color }}
                                     >
                                     <Link
-                                        to={`/${id}`} // mettre i a la pace et mettre le bon élement react
-                                        style={{ color, textDecoration: "none" }} // garde la couleur hover
+                                        to={`/${id}`}
+                                        style={{ color, textDecoration: "none" }}
                                     >
                                         {line.map((char, idx) => (
                                             <span key={idx}>{char}</span>
