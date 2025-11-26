@@ -130,7 +130,9 @@ video {
     margin-top : 5vh;
     z-index: 1;
     filter: none; !important
+    filter:grayscale(0%);
 }
+
 
 .project-choice-title{
     height: 5vh;
@@ -140,7 +142,6 @@ video {
     font-size: 2vw;
     font-family: "Inter", sans-serif;
     font-weight: 200;
-    font-style: normal;
 }
 
 .section3 {

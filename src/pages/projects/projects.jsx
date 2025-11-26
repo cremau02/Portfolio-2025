@@ -111,7 +111,11 @@ const Projects = () => {
             </div>
         </div>
         <div className="section3" hidden={section3}>
-
+            <div> SMART CAMPUS</div>
+            <div> OBJECTIF</div>
+            <div> LISTE COMPETENCES</div>
+            <div> GESTION D'EQUIPE</div>
+            <div> PARTICIPANTS</div>
         </div>
       </div>
   )
