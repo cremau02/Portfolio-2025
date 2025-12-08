@@ -9,16 +9,19 @@ const Projects = () => {
             title: 'Smart Campus',
             image: 'src/videos/logo_smart.png',
             color: "#2ba801",
-            targetVideo: 'videoList2'
+            targetVideo: 'videoList2',
+            description: `A Sustaibnable project which improve our dependency to the global warming`
         },
         {
             id: 2,
             title: 'Escape The Mine',
             image: 'src/videos/logo_escape.png',
             color: "#b8906c",
-            targetVideo: 'videoList1'
+            targetVideo: 'videoList1',
+            description: `A simple video games inspired on the iconic and the most famous of the world`
         },
     ];
+
 
     const initialState = { main: null };
     const [position, setPosition] = useState(initialState);
@@ -26,6 +29,7 @@ const Projects = () => {
     const [size, setSize] = useState(1);
     const [section3, setSection3] = useState(true);
     const [projectSelected, setProjectSelected] = useState(false);
+    const [projectIdSelected, setProjectIdSelected] = useState(0);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -64,6 +68,7 @@ const Projects = () => {
         }
         setSection3(false);
         setProjectSelected(true);
+        setProjectIdSelected(clickedId);
         setColor(projectData.find(project => project.id === clickedId).color);
         setPosition({ main: clickedId });
     }
@@ -94,7 +99,7 @@ const Projects = () => {
                 </div>
             </div>
 
-            <div className="section1">
+            <div className="section1" style={{ transform: `scale(${size})` }}>
                 <div id="videoList1" className="hidden">
                     <video className="rounded-2xl shadow-lg" muted autoPlay loop >
                         <source src="src/videos/game.mp4" type="video/mp4" />
@@ -134,28 +139,36 @@ const Projects = () => {
                 </div>
             </div>
             <div className="section3" hidden={section3}>
-                <div className="project-title">
-                    <div className="word">
-                        <span>S</span>
-                        <span>M</span>
-                        <span>A</span>
-                        <span>R</span>
-                        <span>T</span>
-                    </div>
-                    <div className="word1">
-                        <span>C</span>
-                        <span>A</span>
-                        <span>M</span>
-                        <span>P</span>
-                        <span>U</span>
-                        <span>S</span>
-                    </div>
-                </div>
-                <div> OBJECTIF</div>
-                <div> LISTE COMPETENCES</div>
-                <div> GESTION D'EQUIPE</div>
-                <div> PARTICIPANTS</div>
+                {projectData
+                    .filter(item => item.id === projectIdSelected)
+                    .map((project) => (
+                        <div>
+                            <div className="div-title">
+                                <img className="logo-title" src={project.image} alt="photo de profil"></img>
+                                <a id="title-name" style={{ color: color }}>{project.title}</a>
+                                <div id="title-description">
+                                    <a style={{ color: color}}>" </a>
+                                    <a>{project.description}</a>
+                                    <a style={{ color: color }}> "</a>
+                                </div>
+                            </div>
+                            <div className="div-main">
+                                <div className="main-videos">
+                                    <video className="rounded-2xl shadow-lg main-video" muted autoPlay loop>
+                                        <source src="src/videos/smartContestS3.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
+                                <div className="main-description">
+                                    <a className="main-description-title">An Ambitious project</a>
+                                    <a className="main-description-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</a>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
             </div>
+            <div> LISTE COMPETENCES</div>
+            <div> GESTION D'EQUIPE</div>
+            <div> PARTICIPANTS</div>
         </div>
     )
 };
