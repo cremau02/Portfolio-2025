@@ -1,5 +1,12 @@
 import './projects.css';
-import { useEffect, useState } from "react";
+import {useEffect, useRef, useState} from "react";
+import {motion} from "framer-motion";
+
+import HorizontalScroll from "./ScrollyText.jsx";
+import {useGSAP} from "@gsap/react";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import gsap from "gsap";
+gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
 
@@ -9,6 +16,7 @@ const Projects = () => {
             title: 'Smart Campus',
             image: 'src/videos/logo_smart.png',
             color: "#2ba801",
+            secondaryColor: "#DAE6D6FF",
             targetVideo: 'videoList2',
             description: `A Sustaibnable project which improve our dependency to the global warming`
         },
@@ -17,6 +25,7 @@ const Projects = () => {
             title: 'Escape The Mine',
             image: 'src/videos/logo_escape.png',
             color: "#b8906c",
+            secondaryColor: "#e4dad0",
             targetVideo: 'videoList1',
             description: `A simple video games inspired on the iconic and the most famous of the world`
         },
@@ -30,15 +39,22 @@ const Projects = () => {
     const [section3, setSection3] = useState(true);
     const [projectSelected, setProjectSelected] = useState(false);
     const [projectIdSelected, setProjectIdSelected] = useState(0);
+    const [scrollValue, setScrollValue] = useState(1);
 
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
+            if (scrollPosition > 200) {
+                const newScale = 1 - ((scrollPosition-300) / 800);
+                const clampedScale = Math.min(Math.max(newScale, 0.5), 1);
+                setScrollValue(clampedScale);
+            }
             if (scrollPosition > 375) {
                 setSize(0.5);
             } else {
                 setSize(1);
             }
+            console.log("scroll position", scrollValue);
         };
 
         document.addEventListener('scroll', handleScroll);
@@ -54,6 +70,31 @@ const Projects = () => {
         if (v1) v1.classList.add("hidden");
         if (v2) v2.classList.add("hidden");
     }, []);
+
+
+    const wrapperRef = useRef(null); // Le grand rectangle vert (fixe)
+    const textSliderRef = useRef(null); // Le conteneur qui contient TOUS les textes (bouge)
+
+    useGSAP(() => {
+        if (!wrapperRef.current || !textSliderRef.current) return;
+        ScrollTrigger.getAll().forEach(t => t.kill());
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: wrapperRef.current,
+                start: "center center",
+                end: "+=3000",
+                pin: true,
+                scrub: 1,
+                // markers: true // Tu pourras les enlever
+            }
+        });
+        tl.to(textSliderRef.current, {
+            yPercent: -200,
+            ease: ""
+        });
+
+    }, [projectIdSelected, section3]);
 
     const getPosition = (id) => {
         return Object.keys(position).find(key => position[key] === id);
@@ -99,8 +140,8 @@ const Projects = () => {
                 </div>
             </div>
 
-            <div className="section1" style={{ transform: `scale(${size})` }}>
-                <div id="videoList1" className="hidden">
+            <div className="section1" style={{ transform: `scale(${scrollValue})` }}>
+                <div id="videoList1" className="hidden" >
                     <video className="rounded-2xl shadow-lg" muted autoPlay loop >
                         <source src="src/videos/game.mp4" type="video/mp4" />
                     </video>
@@ -142,33 +183,66 @@ const Projects = () => {
                 {projectData
                     .filter(item => item.id === projectIdSelected)
                     .map((project) => (
-                        <div>
+                        <div key={project.id}>
                             <div className="div-title">
                                 <img className="logo-title" src={project.image} alt="photo de profil"></img>
-                                <a id="title-name" style={{ color: color }}>{project.title}</a>
-                                <div id="title-description">
+                                <motion.a id="title-name" style={{ color: color }}
+                                          initial={{ opacity: 0, y: 20 }}
+                                          whileInView={{ opacity: 1, y: 0 }}
+                                          transition={{ duration: 0.8, ease: "easeOut" }}
+                                          viewport={{ once: true }}>{project.title}
+                                </motion.a>
+                                <motion.div id="title-description" initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.8, delay : .2, ease: "easeOut" }}
+                                            viewport={{ once: true }}>
                                     <a style={{ color: color}}>" </a>
                                     <a>{project.description}</a>
                                     <a style={{ color: color }}> "</a>
-                                </div>
+                                </motion.div>
                             </div>
-                            <div className="div-main">
-                                <div className="main-videos">
+                            <div
+                                className="div-main"
+                                style={{backgroundColor: project.secondaryColor}}
+                                ref={wrapperRef}
+                            >
+                                <motion.div className="main-videos" style={{ color: color }}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.8, delay : .2, ease: "easeOut" }}
+                                            viewport={{ once: true }}>
                                     <video className="rounded-2xl shadow-lg main-video" muted autoPlay loop>
                                         <source src="src/videos/smartContestS3.mp4" type="video/mp4" />
                                     </video>
+                                </motion.div>
+
+                                <div className="text-window" style={{
+                                    // Version pour Chrome/Safari/Edge (Webkit)
+                                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 100%)",
+                                    // Version standard (Firefox, futurs navigateurs)
+                                    maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 100%)"
+                                }}>
+                                    <div ref={textSliderRef} className="text-slider">
+                                        <div className="text-slide-item">
+                                            <span className="main-description-title" style={{color : project.color}}>
+                                                An Ambitious project.
+                                            </span>
+                                            <p className="main-description-text">
+                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="main-description">
-                                    <a className="main-description-title">An Ambitious project</a>
-                                    <a className="main-description-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</a>
-                                </div>
+                                {/* ------------------------------- */}
+
                             </div>
+                            <div> LISTE COMPETENCES</div>
+                            <div> GESTION D'EQUIPE</div>
+                            <div> PARTICIPANTS</div>
+                            <HorizontalScroll />
                         </div>
                     ))}
             </div>
-            <div> LISTE COMPETENCES</div>
-            <div> GESTION D'EQUIPE</div>
-            <div> PARTICIPANTS</div>
         </div>
     )
 };

@@ -6,7 +6,6 @@
     justify-content: center;
     align-items: center;
     z-index: 10;
-
 }
 .logo-top{
     cursor: pointer;
@@ -17,11 +16,11 @@
 }
 
 .logo-text{
-    font-size: 2vw !important;
+    font-size: 1.5vw !important;
     transition: all 0.3s ease-in-out;
 }
 .logo-slash{
-    font-size: 2vw !important;
+    font-size: 1.5vw !important;
     animation: turning 5s ease-in-out infinite;
     transition: all 0.3s ease-in-out;
 }
@@ -174,7 +173,6 @@ video {
     font-family: "Inter", sans-serif;
     font-weight: 800;
     font-style: normal;
-
 }
 
 #title-description{
@@ -184,11 +182,12 @@ video {
 }
 
 .div-main{
-    background-color: #dae6d6;
     height: 90vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    overflow: hidden;
+    position: relative;
 }
 
 .main-video{
@@ -208,12 +207,42 @@ video {
     gap:4vh;
 }
 
+.text-window{
+    display: flex;
+    width: 30vw;
+    height: 60vw;
+    overflow: hidden;
+    align-items: center;
+    background-color: #0850b6;
+}
+
 .main-description-title{
-    font-size: 3vw;
+    font-size:  4.5vw;
     font-weight: 800;
     color : #2ba801;
 }
 
+.main-description-text{
+    font-size: 1.5vw;
+    font-weight: 300;
+    width: 20vw;
+
+}
+
+.text-slider {
+    display: flex;
+    flex-direction: column; /* Empile les textes verticalement */
+    width: 100%;
+}
+
+.text-slide-item {
+    height: 60vh; /* DOIT ÊTRE ÉGAL À LA HAUTEUR DE .text-window */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre le texte verticalement dans sa zone */
+    flex-shrink: 0; /* Empêche le texte de s'écraser */
+    /* background-color: #e74c3c;  <-- Tu peux enlever le rouge mtn */
+}
 
 
 
