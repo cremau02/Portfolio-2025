@@ -83,14 +83,17 @@ const Projects = () => {
             scrollTrigger: {
                 trigger: wrapperRef.current,
                 start: "center center",
-                end: "+=3000",
+                end: "+=2000",
                 pin: true,
                 scrub: 1,
-                // markers: true // Tu pourras les enlever
             }
         });
         tl.to(textSliderRef.current, {
-            yPercent: -200,
+            y: () => {
+                const totalHeight = textSliderRef.current.scrollHeight;
+                const windowHeight = textSliderRef.current.parentElement.offsetHeight;
+                return -(totalHeight - windowHeight);
+            },
             ease: ""
         });
 
@@ -216,24 +219,30 @@ const Projects = () => {
                                     </video>
                                 </motion.div>
 
-                                <div className="text-window" style={{
-                                    // Version pour Chrome/Safari/Edge (Webkit)
-                                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 100%)",
-                                    // Version standard (Firefox, futurs navigateurs)
-                                    maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 100%)"
-                                }}>
-                                    <div ref={textSliderRef} className="text-slider">
+                                <div className="text-window">
+
+                                    <div ref={textSliderRef} className="text-slider" >
+
                                         <div className="text-slide-item">
                                             <span className="main-description-title" style={{color : project.color}}>
                                                 An Ambitious project.
                                             </span>
                                             <p className="main-description-text">
-                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
                                             </p>
                                         </div>
+
+                                        <div className="text-slide-item">
+                                            <span className="main-description-title" style={{color : project.color}}>
+                                                Another Chapter.
+                                            </span>
+                                            <p className="main-description-text">
+                                                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
-                                {/* ------------------------------- */}
 
                             </div>
                             <div> LISTE COMPETENCES</div>

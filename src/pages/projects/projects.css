@@ -196,52 +196,62 @@ video {
     box-shadow: 0px 2px 15px rgba(112, 112, 112, 0.5);
 }
 
-.main-description{
-    display : flex;
+.main-description {
+    display: flex;
     width: 35vw;
     justify-content: flex-start;
     align-items: center;
-    flex-wrap : wrap;
+    flex-wrap: wrap;
     font-family: "Inter", sans-serif;
     font-weight: 300;
-    gap:4vh;
+    gap: 4vh;
 }
 
-.text-window{
+
+.text-window {
+
+    webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 50%, transparent 100%);
     display: flex;
     width: 30vw;
-    height: 60vw;
+    height: 60vh;
     overflow: hidden;
-    align-items: center;
-    background-color: #0850b6;
-}
-
-.main-description-title{
-    font-size:  4.5vw;
-    font-weight: 800;
-    color : #2ba801;
-}
-
-.main-description-text{
-    font-size: 1.5vw;
-    font-weight: 300;
-    width: 20vw;
-
+    align-items: flex-start;
+    position: relative;
 }
 
 .text-slider {
     display: flex;
-    flex-direction: column; /* Empile les textes verticalement */
+    flex-direction: column;
     width: 100%;
+    height: 50vh;
 }
 
+
 .text-slide-item {
-    height: 60vh; /* DOIT ÊTRE ÉGAL À LA HAUTEUR DE .text-window */
+    height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centre le texte verticalement dans sa zone */
-    flex-shrink: 0; /* Empêche le texte de s'écraser */
-    /* background-color: #e74c3c;  <-- Tu peux enlever le rouge mtn */
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* TYPOGRAPHIE */
+.main-description-title {
+    font-size: 4.5vw;
+    font-weight: 800;
+    color: #2ba801;
+    font-family: "Inter", sans-serif;
+    margin-bottom: 2vh; /* Un petit espace sous le titre */
+    display: block;
+}
+
+.main-description-text {
+    font-size: 1.5vw;
+    font-weight: 300;
+    width: 100%; /* Prend toute la largeur de son parent */
+    font-family: "Inter", sans-serif;
+    line-height: 1.4; /* Meilleure lisibilité */
 }
 
 
