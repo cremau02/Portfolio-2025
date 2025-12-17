@@ -187,14 +187,35 @@ video {
     align-items: center;
     justify-content: space-around;
     overflow: hidden;
-    position: relative;
 }
 
-.main-video{
+.video-mask {
+    display : flex;
+    justify-content: center;
+    align-items: center;
     width: 55vw;
-    height: 27vw;
-    box-shadow: 0px 2px 15px rgba(112, 112, 112, 0.5);
+    height: 60vw;
+    overflow: hidden;
+
 }
+
+.video-item {
+    position: absolute;
+
+}
+
+.main-video {
+    width: 52vw;
+    height: 25.8vw;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+.main-video-phone {
+    width: 15vw;
+    height: 30vw;
+
+}
+
 
 .main-description {
     display: flex;
@@ -209,11 +230,10 @@ video {
 
 
 .text-window {
-
     webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 50%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 50%, transparent 100%);
     display: flex;
-    width: 30vw;
+    width: 40vw;
     height: 60vh;
     overflow: hidden;
     align-items: flex-start;
@@ -236,24 +256,22 @@ video {
     flex-shrink: 0;
 }
 
-/* TYPOGRAPHIE */
 .main-description-title {
-    font-size: 4.5vw;
+    font-size: 3.5vw;
     font-weight: 800;
     color: #2ba801;
     font-family: "Inter", sans-serif;
-    margin-bottom: 2vh; /* Un petit espace sous le titre */
+    margin-bottom: 2vh;
     display: block;
 }
 
 .main-description-text {
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     font-weight: 300;
-    width: 100%; /* Prend toute la largeur de son parent */
+    width: 100%;
     font-family: "Inter", sans-serif;
-    line-height: 1.4; /* Meilleure lisibilité */
+    line-height: 1.4;
 }
-
 
 
 

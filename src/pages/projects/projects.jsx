@@ -2,7 +2,6 @@ import './projects.css';
 import {useEffect, useRef, useState} from "react";
 import {motion} from "framer-motion";
 
-import HorizontalScroll from "./ScrollyText.jsx";
 import {useGSAP} from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from "gsap";
@@ -18,12 +17,16 @@ const Projects = () => {
             color: "#2ba801",
             secondaryColor: "#DAE6D6FF",
             targetVideo: 'videoList2',
+            video1 : 'src/videos/smartContestS3.mp4',
+            video2 : 'src/videos/SMARTCONTESTS4.mp4',
             description: `A Sustaibnable project which improve our dependency to the global warming`
         },
         {
             id: 2,
             title: 'Escape The Mine',
             image: 'src/videos/logo_escape.png',
+            video1: 'src/videos/game.mp4',
+            video2: 'src/videos/game.mp4',
             color: "#b8906c",
             secondaryColor: "#e4dad0",
             targetVideo: 'videoList1',
@@ -72,12 +75,22 @@ const Projects = () => {
     }, []);
 
 
-    const wrapperRef = useRef(null); // Le grand rectangle vert (fixe)
-    const textSliderRef = useRef(null); // Le conteneur qui contient TOUS les textes (bouge)
+    const wrapperRef = useRef(null);
+    const textSliderRef = useRef(null);
+    const video2Ref = useRef(null);
+    const video1Ref = useRef(null)
 
     useGSAP(() => {
         if (!wrapperRef.current || !textSliderRef.current) return;
         ScrollTrigger.getAll().forEach(t => t.kill());
+
+        const totalHeight = textSliderRef.current.scrollHeight;
+        const windowHeight = textSliderRef.current.parentElement.offsetHeight;
+        const maxDistance = totalHeight - windowHeight;
+
+        const triggerPointY = 400;
+        const triggerTime = maxDistance > 0 ? (triggerPointY / maxDistance) : 0;
+
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -85,17 +98,28 @@ const Projects = () => {
                 start: "center center",
                 end: "+=2000",
                 pin: true,
-                scrub: 1,
+                anticipatePin: 1,
+                scrub: 0.5
             }
         });
+
         tl.to(textSliderRef.current, {
-            y: () => {
-                const totalHeight = textSliderRef.current.scrollHeight;
-                const windowHeight = textSliderRef.current.parentElement.offsetHeight;
-                return -(totalHeight - windowHeight);
-            },
-            ease: ""
-        });
+            y: -maxDistance,
+            ease: "none",
+            duration: 1
+        }, 0);
+
+        tl.to(video2Ref.current, {
+            opacity: 1,
+            ease: "none",
+            duration: 0.1
+        }, triggerTime);
+
+        tl.to(video1Ref.current, {
+            opacity: 0,
+            ease: "none",
+            duration: 0.1
+        },triggerTime) ;
 
     }, [projectIdSelected, section3]);
 
@@ -144,22 +168,27 @@ const Projects = () => {
             </div>
 
             <div className="section1" style={{ transform: `scale(${scrollValue})` }}>
-                <div id="videoList1" className="hidden" >
-                    <video className="rounded-2xl shadow-lg" muted autoPlay loop >
-                        <source src="src/videos/game.mp4" type="video/mp4" />
-                    </video>
-                    <video className="rounded-2xl shadow-lg" muted autoPlay loop >
-                        <source src="src/videos/game.mp4" type="video/mp4" />
-                    </video>
-                </div>
-                <div id="videoList2" className="hidden">
-                    <video className="rounded-2xl shadow-lg " muted autoPlay loop>
-                        <source src="src/videos/smartContestS3.mp4" type="video/mp4" />
-                    </video>
-                    <video className="rounded-2xl shadow-lg " muted autoPlay loop>
-                        <source src="src/videos/SMARTCONTESTS4.mp4" type="video/mp4" />
-                    </video>
-                </div>
+                {!projectSelected && projectData.map((project) => (
+                    <div id={project.targetVideo} className="hidden" >
+                        <video className="rounded-2xl shadow-lg" muted autoPlay loop >
+                            <source src={project.video1} type="video/mp4" />
+                        </video>
+                        <video className="rounded-2xl shadow-lg" muted autoPlay loop >
+                            <source src={project.video2} type="video/mp4" />
+                        </video>
+                    </div>
+                ))}
+                {projectSelected && projectData.filter((project) => project.id === projectIdSelected)
+                    .map((project) => (
+                    <div id={project.targetVideo} >
+                        <video className="rounded-2xl shadow-lg" muted autoPlay loop >
+                            <source src={project.video1} type="video/mp4" />
+                        </video>
+                        <video className="rounded-2xl shadow-lg" muted autoPlay loop >
+                            <source src={project.video2} type="video/mp4" />
+                        </video>
+                    </div>
+                ))}
             </div>
 
             <div className="section2" hidden={!section3} disabled={!section3}>
@@ -178,7 +207,7 @@ const Projects = () => {
                         ))}
                     </div>
                     <div className="project-choice-title">
-                        <p>{position.main ? undefined : "select a project."}</p>
+                        <p>{position.main ? undefined : "Selectionne un projet."}</p>
                     </div>
                 </div>
             </div>
@@ -209,29 +238,30 @@ const Projects = () => {
                                 style={{backgroundColor: project.secondaryColor}}
                                 ref={wrapperRef}
                             >
-                                <motion.div className="main-videos" style={{ color: color }}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.8, delay : .2, ease: "easeOut" }}
-                                            viewport={{ once: true }}>
-                                    <video className="rounded-2xl shadow-lg main-video" muted autoPlay loop>
-                                        <source src="src/videos/smartContestS3.mp4" type="video/mp4" />
-                                    </video>
+                                <motion.div
+                                    className="video-mask"
+                                >
+                                    <div className="video-item" ref={video1Ref} style={{ zIndex: 1 }}>
+                                        <video className="main-video" muted autoPlay loop>
+                                            <source src="src/videos/smartContestS3.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                    <div className="video-item" ref={video2Ref} style={{ zIndex: 2, opacity: 0 }}>
+                                        <video className="main-video-phone" muted autoPlay loop>
+                                            <source src="src/videos/smartcontestS4-phone.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
                                 </motion.div>
-
                                 <div className="text-window">
-
                                     <div ref={textSliderRef} className="text-slider" >
-
                                         <div className="text-slide-item">
                                             <span className="main-description-title" style={{color : project.color}}>
-                                                An Ambitious project.
+                                                Empowering users through sustainable data monitoring.
                                             </span>
                                             <p className="main-description-text">
-                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
+                                                Developed by a team of five students as part of our Computer Science Bachelor’s degree (BUT Informatique), Smart Campus is an innovative IoT solution designed to bridge the gap between occupant comfort and environmental responsibility. The core objective of the project is to provide room users with an intelligent information and advice tool. Rather than simply displaying raw data, the system utilizes a custom data acquisition unit to analyze the environment and suggest concrete, eco-friendly actions in real-time.
                                             </p>
                                         </div>
-
                                         <div className="text-slide-item">
                                             <span className="main-description-title" style={{color : project.color}}>
                                                 Another Chapter.
@@ -240,15 +270,32 @@ const Projects = () => {
                                                 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
                                             </p>
                                         </div>
-
                                     </div>
                                 </div>
 
                             </div>
-                            <div> LISTE COMPETENCES</div>
+                            <div className="competences">
+                                <div className="carousel">
+                                    <div className="group">
+                                        <div className="card">1</div>
+                                        <div className="card">2</div>
+                                        <div className="card">3</div>
+                                        <div className="card">4</div>
+                                        <div className="card">5</div>
+                                        <div className="card">6</div>
+                                    </div>
+                                    <div aria-hidden className="group">
+                                        <div className="card">1</div>
+                                        <div className="card">2</div>
+                                        <div className="card">3</div>
+                                        <div className="card">4</div>
+                                        <div className="card">5</div>
+                                        <div className="card">6</div>
+                                    </div>
+                                </div>
+                            </div>
                             <div> GESTION D'EQUIPE</div>
                             <div> PARTICIPANTS</div>
-                            <HorizontalScroll />
                         </div>
                     ))}
             </div>

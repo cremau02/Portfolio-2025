@@ -8,8 +8,8 @@ const Home = () => {
     const [showStarter, setShowStarter] = useState(false);
     const [hovered, setHovered] = useState(null);
     const titles = [
-        { id: 'me', lines: [['M', 'E']] },
-        { id: 'projects', lines: [['P', 'R', 'O', 'J', 'E','C', 'T', 'S']] },
+        { id: 'me', lines: [['M', 'O','I']] },
+        { id: 'projects', lines: [['P', 'R', 'O', 'J', 'E', 'T', 'S']] },
         { id: 'experiences', lines: [['E', 'X', 'P', 'E', 'R', 'i', 'E', 'N', 'C', 'E', 'S']] },
     ];
 
